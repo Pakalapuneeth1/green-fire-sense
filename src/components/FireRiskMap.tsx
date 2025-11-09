@@ -183,50 +183,52 @@ const FireRiskMap = () => {
                     className="h-full w-full"
                     style={{ background: "hsl(var(--muted))" }}
                   >
-                    <TileLayer
-                      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    />
-                    <MapUpdater regions={regions} />
-                    {regions.map((region) => (
-                      <Circle
-                        key={region.id}
-                        center={region.position}
-                        radius={15000}
-                        pathOptions={{
-                          color: getRiskColor(region.risk),
-                          fillColor: getRiskColor(region.risk),
-                          fillOpacity: 0.5,
-                          weight: 2,
-                        }}
-                      >
-                        <Popup>
-                          <div className="p-2 min-w-[200px]">
-                            <h3 className="font-semibold text-base mb-2">{region.name}</h3>
-                            <div className="space-y-2">
-                              <div className="flex items-center gap-2">
-                                <Badge variant={getRiskBadgeVariant(region.risk)} className="capitalize">
-                                  {region.risk} Risk
-                                </Badge>
-                              </div>
-                              <div className="grid grid-cols-2 gap-2 text-sm">
-                                <div>
-                                  <p className="text-muted-foreground text-xs">Temperature</p>
-                                  <p className="font-semibold">{region.temperature}°C</p>
+                    <>
+                      <TileLayer
+                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                      />
+                      <MapUpdater regions={regions} />
+                      {regions.map((region) => (
+                        <Circle
+                          key={region.id}
+                          center={region.position}
+                          radius={15000}
+                          pathOptions={{
+                            color: getRiskColor(region.risk),
+                            fillColor: getRiskColor(region.risk),
+                            fillOpacity: 0.5,
+                            weight: 2,
+                          }}
+                        >
+                          <Popup>
+                            <div className="p-2 min-w-[200px]">
+                              <h3 className="font-semibold text-base mb-2">{region.name}</h3>
+                              <div className="space-y-2">
+                                <div className="flex items-center gap-2">
+                                  <Badge variant={getRiskBadgeVariant(region.risk)} className="capitalize">
+                                    {region.risk} Risk
+                                  </Badge>
                                 </div>
-                                <div>
-                                  <p className="text-muted-foreground text-xs">Humidity</p>
-                                  <p className="font-semibold">{region.humidity}%</p>
+                                <div className="grid grid-cols-2 gap-2 text-sm">
+                                  <div>
+                                    <p className="text-muted-foreground text-xs">Temperature</p>
+                                    <p className="font-semibold">{region.temperature}°C</p>
+                                  </div>
+                                  <div>
+                                    <p className="text-muted-foreground text-xs">Humidity</p>
+                                    <p className="font-semibold">{region.humidity}%</p>
+                                  </div>
                                 </div>
+                                <p className="text-xs text-muted-foreground">
+                                  Updated {region.lastUpdated}
+                                </p>
                               </div>
-                              <p className="text-xs text-muted-foreground">
-                                Updated {region.lastUpdated}
-                              </p>
                             </div>
-                          </div>
-                        </Popup>
-                      </Circle>
-                    ))}
+                          </Popup>
+                        </Circle>
+                      ))}
+                    </>
                   </MapContainer>
                 </div>
               </CardContent>
